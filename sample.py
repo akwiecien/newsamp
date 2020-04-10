@@ -6,6 +6,7 @@ import datetime
 
 filter_categories = ['800-8400','800-8300','800-8200','800-8000','700-7851','700-7850','700-7600','700-7450','700-7300','700-7000','600-6950','600-6900','600-6800','600-6700','600-6600','600-6500','600-6400','600-6300','600-6200','600-6100','600-6000','550-5520','500-5100','500-5000','300-3200','300-3100','300-3000','200-2300','200-2200','200-2100','200-2000','100-1100','100-1000']
 
+
 country_sample_numbers = [
     # EEU
     {'country':'TUR', 'counts': [13,13,33,33,33]},
@@ -42,11 +43,16 @@ country_sample_numbers = [
     {'country':'TWN', 'counts': [1,1,2,3,3]},
     {'country':'SGP', 'counts': [1,1,2,3,3]},
     {'country':'HKG', 'counts': [1,1,1,1,1]},
-
     {'country':'IND', 'counts': [15,15,35,35,35]},
     {'country':'BGD', 'counts': [1,1,1,1,1]},
     {'country':'NPL', 'counts': [1,1,1,1,1]},
-    {'country':'LKA', 'counts': [1,1,1,1,1]}
+    {'country':'LKA', 'counts': [1,1,1,1,1]},
+    # NA
+    {'country':'CAN', 'counts': [12,12,32,32,32]},
+    {'country':'BHS', 'counts': [2,2,2,2,2]},
+    {'country':'CYM', 'counts': [1,1,1,1,1]},
+    {'country':'JAM', 'counts': [2,2,2,2,2]},
+    {'country':'VGB', 'counts': [1,1,1,1,1]},
 ]
 
 def main(country, region, kick_off_date):

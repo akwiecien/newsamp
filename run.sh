@@ -53,3 +53,20 @@ do
 done
 python apac_join.py $kick_off_date
 
+
+# APAC -----------------------------------------------------------------------------------------------------------------------------------------------------------
+NA_countries=("VGB" "JAM")
+for country in ${NA_countries[@]};
+do
+      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+      mkdir ./xml/$country
+      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+      do
+            echo "copying files: NA " $country $file
+            hadoop fs -copyToLocal $file ./xml/$country
+      done
+      python sample.py $country "NA" $kick_off_date
+      rm -rf ./xml/$country
+done
+python na_join.py $kick_off_date
+
