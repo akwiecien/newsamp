@@ -22,7 +22,7 @@ else
 fi
 
 # WEU ------------------------------------------------------------------------------------------------------------------------------------------------------------
-WEU_countries=("BEL")
+WEU_countries=("ISL")
 for country in ${WEU_countries[@]};
 do
       mkdir ./xml/$country
@@ -36,7 +36,7 @@ do
 done
 
 # APAC -----------------------------------------------------------------------------------------------------------------------------------------------------------
-APAC_countries=("PHL")
+APAC_countries=("NPL" "LKA")
 for country in ${APAC_countries[@]};
 do
       mkdir ./xml/$country
@@ -48,4 +48,5 @@ do
       python sample.py $country "APAC" $kick_off_date
       rm -rf ./xml/$country
 done
+python apac_join.py $kick_off_date
 
