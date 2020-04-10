@@ -4,7 +4,7 @@ base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-ooz
 # EEU - change true or false if next week EEU is required or not
 EEU_todo=true
 EEU_path="${base_path}/extractOut/EEU_201E1"                                                          # <- check
-EEU_countries=("SVK" "POL")
+EEU_countries=("HUN")
 
 # WEU
 WEU_path="${base_path}/extractOut/WEU_201E1"                                                          # <- check
