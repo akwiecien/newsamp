@@ -1,4 +1,4 @@
-kick_off_date="20200411"
+kick_off_date="20200410"
 base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W"            # <- check
 
 # EEU - change true or false if next week EEU is required or not
