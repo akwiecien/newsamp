@@ -7,6 +7,8 @@ def join(kick_off_date):
     first = False
     aggregeted_csv = []
     for file in files:
+        if not ".csv" in file and not "APAC_" in file:
+            continue
         if "APAC_IND" in file or "APAC_BGR" in file or "APAC_NPL" in file or "APAC_LKA" in file:
             fr = open(os.path.join(dir_path, file), 'r')
             for line in fr:
