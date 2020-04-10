@@ -46,7 +46,7 @@ country_sample_numbers = [
     {'country':'IND', 'counts': [15,15,35,35,35]},
     {'country':'BGD', 'counts': [1,1,1,1,1]},
     {'country':'NPL', 'counts': [1,1,1,1,1]},
-    {'country':'NPL', 'counts': [1,1,1,1,1]}
+    {'country':'LKA', 'counts': [1,1,1,1,1]}
 ]
 
 def main(country, region, kick_off_date):
