@@ -219,18 +219,18 @@ def create_csv_list(country, region, randomed_list):
                 csv_list.append(
                     placeid
                     +","+fix_quote(name)
-                    +","+phone
-                    +","+house_number
+                    +","+fix_quote(phone)
+                    +","+fix_quote(house_number)
                     +","+fix_quote(street_basename)
-                    +","+street_type
-                    +","+city
-                    +","+state
-                    +","+country
-                    +","+postal
-                    +","+country
-                    +","+poi_category_id
+                    +","+fix_quote(street_type)
+                    +","+fix_quote(city)
+                    +","+fix_quote(state)
+                    +","+fix_quote(country)
+                    +","+fix_quote(postal)
+                    +","+fix_quote(country)
+                    +","+fix_quote(poi_category_id)
                     +","+fix_quote(poi_category_name)
-                    +","+lcms_category_id+"|"+lcms_category_name
+                    +","+fix_quote(lcms_category_id+"|"+lcms_category_name)
                     +","+lat
                     +","+lon
                     +","+isplace
@@ -246,18 +246,18 @@ def create_csv_list(country, region, randomed_list):
                 csv_list.append(
                     placeid
                     +","+fix_quote(name)
-                    +","+phone
-                    +","+house_number
+                    +","+fix_quote(phone)
+                    +","+fix_quote(house_number)
                     +","+fix_quote(street_basename)
-                    +","+street_type
-                    +","+city
-                    +","+state
-                    +","+country
-                    +","+postal
-                    +","+country
-                    +","+poi_category_id
+                    +","+fix_quote(street_type)
+                    +","+fix_quote(city)
+                    +","+fix_quote(state)
+                    +","+fix_quote(country)
+                    +","+fix_quote(postal)
+                    +","+fix_quote(country)
+                    +","+fix_quote(poi_category_id)
                     +","+fix_quote(poi_category_name)
-                    +","+lcms_category_id+"|"+lcms_category_name
+                    +","+fix_quote(lcms_category_id+"|"+lcms_category_name)
                     +","+lat
                     +","+lon
                     +","+isplace
