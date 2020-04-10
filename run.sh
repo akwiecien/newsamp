@@ -8,6 +8,7 @@ if $EEU_to_do
 then
       for country in ${EEU_countries[@]};
       do
+            echo "-------------------------------------------------------------------------------------------------------------------------------"
             mkdir ./xml/$country
             for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
             do
@@ -25,6 +26,7 @@ fi
 WEU_countries=("ISL")
 for country in ${WEU_countries[@]};
 do
+      echo "-------------------------------------------------------------------------------------------------------------------------------"
       mkdir ./xml/$country
       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
       do
@@ -39,6 +41,7 @@ done
 APAC_countries=("NPL" "LKA")
 for country in ${APAC_countries[@]};
 do
+      echo "-------------------------------------------------------------------------------------------------------------------------------"
       mkdir ./xml/$country
       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
       do

@@ -15,11 +15,11 @@ def join(kick_off_date):
                 if not "place_id," in line:
                     aggregeted_csv.append(line)
             os.remove(file)
-            
+
     fw = open(os.path.join(dir_path,"RN_"+kick_off_date+".csv"), 'w')
     for item in aggregeted_csv:
         fw.write(item.encode('utf8')+"\r\n")
 
 
 if __name__ == "__main__":
-    join(sys.argv[0])
+    join(sys.argv[1])
