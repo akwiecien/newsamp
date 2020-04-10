@@ -280,7 +280,7 @@ def save_csv_list(csv_list, country, region):
     file_name = region+"_"+country+"_"+run_date+".csv"
     fo = open (file_name, 'w')
     for line in csv_list:
-        fo.write(line+"\t\n")
+        fo.write(line.encode('utf8')+"\t\n")
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2])
