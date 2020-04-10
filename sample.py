@@ -94,7 +94,7 @@ def create_csv_list(country, region, randomed_list):
     print("sampling: "+country)
     csv_list = []
     for i in range(0,3):
-        random.shuffle(randomed_list)
+            random.shuffle(randomed_list)
         csv_list = []
         givenCountry = [x for x in country_sample_numbers if x['country']==country][0]
         current_counts = {
