@@ -326,7 +326,8 @@ def save_csv_list(csv_list, country, region, kick_off_date):
 
 def fix_quote(input):
     if "," in input:
-        input = "\""+input+"\""
+        return "\""+input+"\""
+    return input
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2], sys.argv[3])
