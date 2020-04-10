@@ -9,9 +9,9 @@ then
       for country in ${EEU_countries[@]};
       do
             mkdir ./xml/$country
-            echo "copying files: EEU " $country
             for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
             do
+                  echo "copying files: EEU " $country $file
                   hadoop fs -copyToLocal $file ./xml/$country
             done
             python sample.py $country "EEU" $kick_off_date
@@ -26,9 +26,9 @@ WEU_countries=("BEL")
 for country in ${WEU_countries[@]};
 do
       mkdir ./xml/$country
-      echo "copying files: WEU " $country
       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
       do
+            echo "copying files: WEU " $country $file
             hadoop fs -copyToLocal $file ./xml/$country
       done
       python sample.py $country "WEU" $kick_off_date
@@ -40,9 +40,9 @@ APAC_countries=("PHL")
 for country in ${APAC_countries[@]};
 do
       mkdir ./xml/$country
-      echo "copying files: APAC " $country
       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
       do
+            echo "copying files: APAC " $country $file
             hadoop fs -copyToLocal $file ./xml/$country
       done
       python sample.py $country "APAC" $kick_off_date
