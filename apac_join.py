@@ -11,11 +11,8 @@ def join(kick_off_date):
             fr = open(os.path.join(dir_path, file), 'r')
             for line in fr:
                 if line.startswith("place_id"):
-                    if first:
-                        continue
-                    else:
+                    if len(aggregeted_csv)==0:
                         aggregeted_csv.append(line)
-                        first == True
                 else:
                     aggregeted_csv.append(line)
             os.remove(file)
