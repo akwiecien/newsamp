@@ -4,11 +4,10 @@ import os
 import random
 import datetime
 
-run_date = "20200410"
-
 filter_categories = ['800-8400','800-8300','800-8200','800-8000','700-7851','700-7850','700-7600','700-7450','700-7300','700-7000','600-6950','600-6900','600-6800','600-6700','600-6600','600-6500','600-6400','600-6300','600-6200','600-6100','600-6000','550-5520','500-5100','500-5000','300-3200','300-3100','300-3000','200-2300','200-2200','200-2100','200-2000','100-1100','100-1000']
 
 country_sample_numbers = [
+    # EEU
     {'country':'TUR', 'counts': [13,13,33,33,33]},
     {'country':'POL', 'counts': [5,5,10,10,10]},
     {'country':'RUS', 'counts': [3,3,8,8,8]},
@@ -19,13 +18,27 @@ country_sample_numbers = [
     {'country':'HRV', 'counts': [1,1,2,3,3]},
     {'country':'BGR', 'counts': [1,1,2,3,3]},
     {'country':'SVK', 'counts': [1,1,1,1,1]},
-    {'country':'KAZ', 'counts': [1,1,1,1,1]}
+    {'country':'KAZ', 'counts': [1,1,1,1,1]},
+    # WEU
+    {'country':'NLD', 'counts': [2,2,7,7,7]},
+    {'country':'SWE', 'counts': [2,2,7,7,7]},
+    {'country':'BEL', 'counts': [1,1,4,4,5]},
+    {'country':'PRT', 'counts': [1,1,4,4,5]},
+    {'country':'AUT', 'counts': [1,1,2,3,3]},
+    {'country':'DNK', 'counts': [1,1,2,3,3]},
+    {'country':'NOR', 'counts': [1,1,2,3,3]},
+    {'country':'FIN', 'counts': [1,1,2,3,3]},
+    {'country':'CHE', 'counts': [1,1,2,3,3]},
+    {'country':'IRL', 'counts': [1,1,1,1,1]},
+    {'country':'LUX', 'counts': [1,1,1,1,1]},
+    {'country':'MLT', 'counts': [1,1,1,1,1]},
+    {'country':'ISL', 'counts': [1,1,1,1,1]}
 ]
 
-def main(country, region):
+def main(country, region, kick_off_date):
     randomed_list = do_sample(country)
-    csv_list = create_csv_list(country, randomed_list)
-    save_csv_list(csv_list, country, region)
+    csv_list = create_csv_list(country, region, randomed_list)
+    save_csv_list(csv_list, country, region, kick_off_date)
 
 def do_sample(country):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -40,7 +53,7 @@ def do_sample(country):
         tempList = []
         for line in content:
             if len(line)>1000:
-                tempList.append(file+line)
+                tempList.append(line)
         if number_of_files == 1:
             return tempList
         random.shuffle(tempList)
@@ -50,7 +63,7 @@ def do_sample(country):
         randomed_list = randomed_list + tempList[:sl]
     return randomed_list     
 
-def create_csv_list(country, randomed_list):
+def create_csv_list(country, region, randomed_list):
     random.shuffle(randomed_list)
     print("sampling: "+country)
     csv_list = []
@@ -63,11 +76,16 @@ def create_csv_list(country, randomed_list):
             'r4': givenCountry['counts'][3],
             'r5': givenCountry['counts'][4]
         }
-        csv_list.append(
-            "place_id,name,phone,house_number,street_basename,street_type,city,state,country,postal,nt_cat_id,nt_cat_name,pd_cat_id,pd_cat_name,lat,lon,isplace,isopen,isname,isaddr,isphone,reality_score,full_house_number,district,from_file"
-        )
+        if region == "EEU":
+            csv_list.append(
+                "place_id,name,phone,house_number,street_basename,street_type,city,state,country,postal,nt_cat_id,nt_cat_name,pd_cat_id,pd_cat_name,lat,lon,isplace,isopen,isname,isaddr,isphone,reality_score,full_house_number,district"
+            )
+        else:
+            csv_list.append(
+                "place_id,name,phone,house_number,street_basename,street_type,city,state,country,postal,nt_cat_id,nt_cat_name,pd_cat_id,pd_cat_name,lat,lon,isplace,isopen,isname,isaddr,isphone,reality_score"
+            )
         for item in randomed_list:
-            doc = xml.dom.minidom.parseString(item[11:])
+            doc = xml.dom.minidom.parseString(item)
             placeid = ""
             name = ""
             phone = ""
@@ -197,35 +215,58 @@ def create_csv_list(country, randomed_list):
             for additData in additionalDataNodes:
                 if additData.hasAttribute('key') and additData.getAttribute('key') == "FullHouseNumber":
                     full_house_number = additData.firstChild.data
-
-            print(item[:11])
-            csv_list.append(
-                placeid
-                +","+name
-                +","+phone
-                +","+house_number
-                +","+street_basename
-                +","+street_type
-                +","+city
-                +","+state
-                +","+country
-                +","+postal
-                +","+country
-                +","+poi_category_id
-                +","+poi_category_name
-                +","+lcms_category_id+"|"+lcms_category_name
-                +","+lat
-                +","+lon
-                +","+isplace
-                +","+isopen
-                +","+isname
-                +","+isaddr
-                +","+isphone
-                +","+reality_score
-                +","+full_house_number
-                +","+district
-                +","+item[:11]
-            )
+            if region == "EEU":
+                csv_list.append(
+                    placeid
+                    +","+name
+                    +","+phone
+                    +","+house_number
+                    +","+street_basename
+                    +","+street_type
+                    +","+city
+                    +","+state
+                    +","+country
+                    +","+postal
+                    +","+country
+                    +","+poi_category_id
+                    +","+poi_category_name
+                    +","+lcms_category_id+"|"+lcms_category_name
+                    +","+lat
+                    +","+lon
+                    +","+isplace
+                    +","+isopen
+                    +","+isname
+                    +","+isaddr
+                    +","+isphone
+                    +","+reality_score
+                    +","+full_house_number
+                    +","+district
+                )
+            else:
+                csv_list.append(
+                    placeid
+                    +","+name
+                    +","+phone
+                    +","+house_number
+                    +","+street_basename
+                    +","+street_type
+                    +","+city
+                    +","+state
+                    +","+country
+                    +","+postal
+                    +","+country
+                    +","+poi_category_id
+                    +","+poi_category_name
+                    +","+lcms_category_id+"|"+lcms_category_name
+                    +","+lat
+                    +","+lon
+                    +","+isplace
+                    +","+isopen
+                    +","+isname
+                    +","+isaddr
+                    +","+isphone
+                    +","+reality_score
+                )
 
             if check_counts_finished(current_counts):
                 break
@@ -276,11 +317,12 @@ def check_counts_finished(current_counts):
         return True
     return False
 
-def save_csv_list(csv_list, country, region):
-    file_name = region+"_"+country+"_"+run_date+".csv"
+def save_csv_list(csv_list, country, region, kick_off_date):
+    file_name = region+"_"+country+"_"+kick_off_date+".csv"
     fo = open (file_name, 'w')
     for line in csv_list:
         fo.write(line.encode('utf8')+"\t\n")
+        # fo.write(line+"\t\n")
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2])
+    main(sys.argv[1], sys.argv[2], sys.argv[3])
