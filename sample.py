@@ -4,6 +4,8 @@ import os
 import random
 import datetime
 
+run_date = "20200410"
+
 filter_categories = ['800-8400','800-8300','800-8200','800-8000','700-7851','700-7850','700-7600','700-7450','700-7300','700-7000','600-6950','600-6900','600-6800','600-6700','600-6600','600-6500','600-6400','600-6300','600-6200','600-6100','600-6000','550-5520','500-5100','500-5000','300-3200','300-3100','300-3000','200-2300','200-2200','200-2100','200-2000','100-1100','100-1000']
 
 country_sample_numbers = [
@@ -23,6 +25,7 @@ country_sample_numbers = [
 def main(country, region):
     randomed_list = do_sample(country)
     csv_list = create_csv_list(country, randomed_list)
+    save_csv_list(csv_list, country, region)
 
 def do_sample(country):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -37,7 +40,7 @@ def do_sample(country):
         tempList = []
         for line in content:
             if len(line)>1000:
-                tempList.append(line)
+                tempList.append(file+line)
         if number_of_files == 1:
             return tempList
         random.shuffle(tempList)
@@ -48,6 +51,8 @@ def do_sample(country):
     return randomed_list     
 
 def create_csv_list(country, randomed_list):
+    random.shuffle(randomed_list)
+    print("sampling: "+country)
     csv_list = []
     for i in range(0,3):
         givenCountry = [x for x in country_sample_numbers if x['country']==country][0]
@@ -59,32 +64,33 @@ def create_csv_list(country, randomed_list):
             'r5': givenCountry['counts'][4]
         }
         csv_list.append(
-            "place_id,name,phone,house_number,street_basename,street_type,city,state,country,postal,nt_cat_id,nt_cat_name,pd_cat_id,pd_cat_name,lat,lon,isplace,isopen,isname,isaddr,isphone,reality_score,full_house_number,district"
+            "place_id,name,phone,house_number,street_basename,street_type,city,state,country,postal,nt_cat_id,nt_cat_name,pd_cat_id,pd_cat_name,lat,lon,isplace,isopen,isname,isaddr,isphone,reality_score,full_house_number,district,from_file"
         )
         for item in randomed_list:
-            
-            doc = xml.dom.minidom.parseString(item)
+            doc = xml.dom.minidom.parseString(item[11:])
             placeid = ""
             name = ""
             phone = ""
             house_number = ""
-
-            lcms_category_id = ""
-            lcms_category_name = ""
-            poi_category_id = ""
-            poi_category_name = ""
             street_basename = ""
             street_type = ""
             city = ""
             state = ""
             postal = ""
-
+            lcms_category_id = ""
+            lcms_category_name = ""
+            poi_category_id = ""
+            poi_category_name = ""
+            lat = ""
+            lon = ""
             isplace = "-0.1"
             isopen = "-0.1"
             isname = "-0.1"
             isaddr = "-0.1"
             isphone = "-0.1"
             reality_score = ""
+            full_house_number = "NULL"
+            district = ""
 
             # category lcms ---------------------------------------------
             categories = doc.getElementsByTagName('Category')
@@ -175,8 +181,24 @@ def create_csv_list(country, randomed_list):
                     if categoryNameNode:
                         poi_category_name = categoryNameNode[0].firstChild.data
                     break
+            # coordinates ---------------------------------------------------
+            geoPositoins = doc.getElementsByTagName('GeoPosition')
+            for geoPosition in geoPositoins:
+                if geoPosition.hasAttribute('type') and geoPosition.getAttribute('type') == "ROUTING":
+                    latNode = geoPosition.getElementsByTagName('Latitude')
+                    if latNode:
+                        lat = latNode[0].firstChild.data
+                    lonNode = geoPosition.getElementsByTagName('Longitude')
+                    if lonNode:
+                        lon = lonNode[0].firstChild.data
+                    break
+            # full house number ----------------------------------------------
+            additionalDataNodes = doc.getElementsByTagName('AdditionalData')
+            for additData in additionalDataNodes:
+                if additData.hasAttribute('key') and additData.getAttribute('key') == "FullHouseNumber":
+                    full_house_number = additData.firstChild.data
 
-            print(poi_category_name)
+            print(item[:11])
             csv_list.append(
                 placeid
                 +","+name
@@ -192,9 +214,17 @@ def create_csv_list(country, randomed_list):
                 +","+poi_category_id
                 +","+poi_category_name
                 +","+lcms_category_id+"|"+lcms_category_name
-                # +","+xxxxxxxxxxxx
-                # +","+xxxxxxxxxxxx
-                # +","+xxxxxxxxxxxx
+                +","+lat
+                +","+lon
+                +","+isplace
+                +","+isopen
+                +","+isname
+                +","+isaddr
+                +","+isphone
+                +","+reality_score
+                +","+full_house_number
+                +","+district
+                +","+item[:11]
             )
 
             if check_counts_finished(current_counts):
@@ -245,6 +275,12 @@ def check_counts_finished(current_counts):
     if c1 == 0 and c2 == 0 and c3 == 0 and c4 == 0 and c5 == 0:
         return True
     return False
+
+def save_csv_list(csv_list, country, region):
+    file_name = region+"_"+country+"_"+run_date+".csv"
+    fo = open (file_name, 'w')
+    for line in csv_list:
+        fo.write(line+"\t\n")
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2])

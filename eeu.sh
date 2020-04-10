@@ -1,6 +1,6 @@
 declare -a path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W"
 
-declare -a StringArray=("SVK")
+declare -a StringArray=("POL")
 declare -a region="EEU"
 
 for country in ${StringArray[@]};
