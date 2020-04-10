@@ -12,13 +12,14 @@ def join(kick_off_date):
             for line in fr:
                 if "place_id," in line and first == False:
                     aggregeted_csv.append(line)
+                    first == True
                 if not "place_id," in line:
                     aggregeted_csv.append(line)
             os.remove(file)
 
     fw = open(os.path.join(dir_path,"RN_"+kick_off_date+".csv"), 'w')
     for item in aggregeted_csv:
-        fw.write(item.encode('utf8')+"\r\n")
+        fw.write(item.encode('utf8'))
 
 
 if __name__ == "__main__":
