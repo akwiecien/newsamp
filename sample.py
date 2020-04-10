@@ -218,10 +218,10 @@ def create_csv_list(country, region, randomed_list):
             if region == "EEU":
                 csv_list.append(
                     placeid
-                    +","+name
+                    +","+fix_quote(name)
                     +","+phone
                     +","+house_number
-                    +","+street_basename
+                    +","+fix_quote(street_basename)
                     +","+street_type
                     +","+city
                     +","+state
@@ -229,7 +229,7 @@ def create_csv_list(country, region, randomed_list):
                     +","+postal
                     +","+country
                     +","+poi_category_id
-                    +","+poi_category_name
+                    +","+fix_quote(poi_category_name)
                     +","+lcms_category_id+"|"+lcms_category_name
                     +","+lat
                     +","+lon
@@ -245,10 +245,10 @@ def create_csv_list(country, region, randomed_list):
             else:
                 csv_list.append(
                     placeid
-                    +","+name
+                    +","+fix_quote(name)
                     +","+phone
                     +","+house_number
-                    +","+street_basename
+                    +","+fix_quote(street_basename)
                     +","+street_type
                     +","+city
                     +","+state
@@ -256,7 +256,7 @@ def create_csv_list(country, region, randomed_list):
                     +","+postal
                     +","+country
                     +","+poi_category_id
-                    +","+poi_category_name
+                    +","+fix_quote(poi_category_name)
                     +","+lcms_category_id+"|"+lcms_category_name
                     +","+lat
                     +","+lon
@@ -323,6 +323,10 @@ def save_csv_list(csv_list, country, region, kick_off_date):
     for line in csv_list:
         fo.write(line.encode('utf8')+"\t\n")
         # fo.write(line+"\t\n")
+
+def fix_quote(input):
+    if "," in input:
+        input = "\""+input+"\""
 
 if __name__ == "__main__":
     main(sys.argv[1], sys.argv[2], sys.argv[3])
