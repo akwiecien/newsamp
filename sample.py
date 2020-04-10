@@ -32,7 +32,21 @@ country_sample_numbers = [
     {'country':'IRL', 'counts': [1,1,1,1,1]},
     {'country':'LUX', 'counts': [1,1,1,1,1]},
     {'country':'MLT', 'counts': [1,1,1,1,1]},
-    {'country':'ISL', 'counts': [1,1,1,1,1]}
+    {'country':'ISL', 'counts': [1,1,1,1,1]},
+    # APAC
+    {'country':'THA', 'counts': [4,10,10,12,12]},
+    {'country':'IDN', 'counts': [4,4,9,9,9]},
+    {'country':'VNM', 'counts': [2,2,2,7,7]},
+    {'country':'MYS', 'counts': [1,2,4,4,4]},
+    {'country':'PHL', 'counts': [1,1,2,3,3]},
+    {'country':'TWN', 'counts': [1,1,2,3,3]},
+    {'country':'SGP', 'counts': [1,1,2,3,3]},
+    {'country':'HKG', 'counts': [1,1,1,1,1]},
+
+    {'country':'IND', 'counts': [15,15,35,35,35]},
+    {'country':'BGD', 'counts': [1,1,1,1,1]},
+    {'country':'NPL', 'counts': [1,1,1,1,1]},
+    {'country':'NPL', 'counts': [1,1,1,1,1]}
 ]
 
 def main(country, region, kick_off_date):
