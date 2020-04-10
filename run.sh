@@ -1,6 +1,6 @@
 kick_off_date="20200410"
 EEU_to_do=true
-base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W"            # <- check
+base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W/extractOut"            # <- check
 
 # EEU - change true or false if next week EEU is required or not -------------------------------------------------------------------------------------------------
 EEU_countries=("SVK")
