@@ -5,7 +5,7 @@ mkdir $kick_off_date
 
 # EEU - change true or false if next week EEU is required or not -------------------------------------------------------------------------------------------------
 EEU_countries=("TUR" "POL" "RUS" "RUM" "GRC" "CHE" "HUN" "HRV" "BGR" "SVK" "KAZ")
-EEU_countries=("KAZ")
+EEU_countries=("SVK")
 if $EEU_to_do
 then
       for country in ${EEU_countries[@]};
