@@ -103,9 +103,10 @@ def main(country, region, kick_off_date, num_files):
 
 def save_tmp(randomed_list, country):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    fw = open(os.path.join(dir_path, "xml", country+"_tmp.csv"), 'wab')
+    fw = open(os.path.join(dir_path, "xml", country+"_tmp.csv"), 'a+b')
     for line in randomed_list:
         fw.write(line.encode("UTF-8")+"\r\n")
+    fw.close()
 
 def do_sample(country, number_of_files):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -120,6 +121,7 @@ def do_sample(country, number_of_files):
             for line in content:
                 if len(line)>1000:
                     randomed_list.append(line)
+            content.close()
     else:  
         for file in files:
             print('reading file: '+file)
