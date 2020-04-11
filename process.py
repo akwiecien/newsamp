@@ -87,7 +87,7 @@ def read_samples(country):
     for line in fw:
         randomed_list.append(line)
     fw.close()
-    os.remove(os.path.join(dir_path, "xml", country+"tmp.csv"))
+    os.remove(os.path.join(dir_path, "xml", country+"_tmp.csv"))
     return randomed_list
 
 def create_csv_list(country, region, randomed_list):
