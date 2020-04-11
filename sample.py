@@ -53,6 +53,18 @@ country_sample_numbers = [
     {'country':'CYM', 'counts': [1,1,1,1,1]},
     {'country':'JAM', 'counts': [2,2,2,2,2]},
     {'country':'VGB', 'counts': [1,1,1,1,1]},
+    # LAM
+    {'country':'BRA', 'counts': [7,8,20,20,20]},
+    
+    {'country':'MEX', 'counts': [3,3,8,8,8]},
+    {'country':'ARG', 'counts': [2,2,2,2,2]},
+    {'country':'COL', 'counts': [1,1,1,1,1]},
+    {'country':'CHL', 'counts': [1,1,1,1,1]},
+    {'country':'PER', 'counts': [1,1,1,1,1]},
+    {'country':'ECU', 'counts': [1,1,1,1,1]},
+    {'country':'PRY', 'counts': [1,1,1,1,1]},
+    {'country':'PAN', 'counts': [1,1,1,1,1]},
+    {'country':'VEN', 'counts': [1,1,1,1,1]}
 ]
 
 def main(country, region, kick_off_date):
@@ -166,8 +178,9 @@ def create_csv_list(country, region, randomed_list):
                 if attr.hasAttribute('key') and attr.getAttribute('key') == "reality_score":
                     reality_score = attr.firstChild.data
 
-            if not lcms_category_id[:8] in filter_categories:
-                continue
+            if region != "LAM":
+                if not lcms_category_id[:8] in filter_categories:
+                    continue
             if check_counts(current_counts, float(reality_score)) == False:
                 continue
             # place id --------------------------------------------------
