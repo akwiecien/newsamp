@@ -7,7 +7,7 @@ def join_por(kick_off_date):
     aggregeted_csv = []
     for file in files:
         if file.startswith("LAM_BRA"):
-            fr = open(os.path.join(dir_path, kick_off_date, file), 'r')
+            fr = open(os.path.join(dir_path, kick_off_date, file), 'rb')
             for line in fr:
                 if line.startswith("place_id"):
                     if len(aggregeted_csv)==0:
