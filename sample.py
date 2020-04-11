@@ -105,7 +105,7 @@ def save_tmp(randomed_list, country):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     fw = open(os.path.join(dir_path, "xml", country+"_tmp.csv"), 'a+b')
     for line in randomed_list:
-        fw.write(line.encode("UTF-8")+"\r\n")
+        fw.write(line+"\r\n")
     fw.close()
 
 def do_sample(country, number_of_files):
