@@ -6,7 +6,6 @@ import datetime
 
 filter_categories = ['800-8400','800-8300','800-8200','800-8000','700-7851','700-7850','700-7600','700-7450','700-7300','700-7000','600-6950','600-6900','600-6800','600-6700','600-6600','600-6500','600-6400','600-6300','600-6200','600-6100','600-6000','550-5520','500-5100','500-5000','300-3200','300-3100','300-3000','200-2300','200-2200','200-2100','200-2000','100-1100','100-1000']
 
-
 country_sample_numbers = [
     # EEU
     {'country':'TUR', 'counts': [13,13,33,33,33]},
@@ -64,7 +63,15 @@ country_sample_numbers = [
     {'country':'ECU', 'counts': [1,1,1,1,1]},
     {'country':'PRY', 'counts': [1,1,1,1,1]},
     {'country':'PAN', 'counts': [1,1,1,1,1]},
-    {'country':'VEN', 'counts': [1,1,1,1,1]}
+    {'country':'VEN', 'counts': [1,1,1,1,1]},
+    # BIG 7
+    {'country':'AUS', 'counts': [15,15,40,40,40]},
+    {'country':'DEU', 'counts': [15,15,40,40,40]},
+    {'country':'ESP', 'counts': [15,15,40,40,40]},
+    {'country':'GBR', 'counts': [15,15,20,20,20]},
+    {'country':'ITA', 'counts': [15,15,40,40,40]},
+    {'country':'FRA', 'counts': [15,15,40,40,40]},
+    {'country':'USA', 'counts': [15,15,40,40,40]},
 ]
 
 def main(country, region, kick_off_date):
@@ -359,8 +366,9 @@ def check_counts_finished(current_counts):
     return False
 
 def save_csv_list(csv_list, country, region, kick_off_date):
-    file_name = os.path.join(kick_off_date,region+"_"+country+"_"+kick_off_date+".csv")
-    fo = open (file_name, 'w')
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    file_name = os.path.join(dir_path, kick_off_date,region+"_"+country+"_"+kick_off_date+".csv")
+    fo = open(file_name, 'w')
     for line in csv_list:
         fo.write(line.encode('utf8')+"\r\n")
         # fo.write(line+"\t\n")
