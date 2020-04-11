@@ -93,7 +93,7 @@ def main(country, region, kick_off_date, num_files):
         # }
         # requests.post("https://api.ciscospark.com/v1/messages", data=payload, headers=auth_json)
     except Exception as exception:
-        print("Region: "+region+"  Country: "+country+"  Exception:   "+ exception)
+        print("Region: "+region+"  Country: "+country+"  Exception:   "+ str(exception))
 
         # payload = {
         #     "toPersonEmail": "andrzej.kwiecien@here.com",
