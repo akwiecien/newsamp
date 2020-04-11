@@ -1,6 +1,8 @@
 kick_off_date="20200410"
 EEU_to_do=true
 base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W/extractOut"            # <- check
+# check hdfs location for point 3 from this confluence page
+# https://confluence.in.here.com/display/LCM/Places+XML+Products
 mkdir $kick_off_date
 
 # Big 7 -----------------------------------------------------------------------------------------------------------------------------------------------------------
