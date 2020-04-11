@@ -11,9 +11,9 @@ def join_por(kick_off_date):
             for line in fr:
                 if line.startswith("place_id"):
                     if len(aggregeted_csv)==0:
-                        aggregeted_csv.append(line)
+                        aggregeted_csv.append(line.decode("UTF-8"))
                 else:
-                    aggregeted_csv.append(line)
+                    aggregeted_csv.append(line.decode("UTF-8"))
             os.remove(file)
 
     fw = open(os.path.join(dir_path, kick_off_date, "LAM_POR_"+kick_off_date+".csv"), 'wb')
@@ -30,9 +30,9 @@ def join_spa(kick_off_date):
             for line in fr:
                 if line.startswith("place_id"):
                     if len(aggregeted_csv)==0:
-                        aggregeted_csv.append(line)
+                        aggregeted_csv.append(line.decode("UTF-8"))
                 else:
-                    aggregeted_csv.append(line)
+                    aggregeted_csv.append(line.decode("UTF-8"))
             os.remove(os.path.join(dir_path, kick_off_date, file))
 
     fw = open(os.path.join(dir_path, kick_off_date, "LAM_SPA_"+kick_off_date+".csv"), 'wb')
