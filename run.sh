@@ -3,26 +3,52 @@ EEU_to_do=true
 base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W/extractOut"            # <- check
 mkdir $kick_off_date
 
-# # EEU - change true or false if next week EEU is required or not -------------------------------------------------------------------------------------------------
-# EEU_countries=("TUR" "POL" "RUS" "RUM" "GRC" "CHE" "HUN" "HRV" "BGR" "SVK" "KAZ")
-# EEU_countries=("SVK")
-# if $EEU_to_do
-# then
-#       for country in ${EEU_countries[@]};
+# # Big 7 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# BIG7_countries=("AUS" "DEU" "ESP" "GBR" "ITA" "FRA" "USA")
+# BIG7_countries=("ITA")
+# for country in ${BIG7_countries[@]};
+# do
+#       echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+#       mkdir ./xml/$country
+#       num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
+      
+#       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
 #       do
-#             echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-#             mkdir ./xml/$country
-#             for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
-#             do
-#                   echo "copying files: EEU " $country $file
-#                   hadoop fs -copyToLocal $file ./xml/$country
-#             done
-#             python sample.py $country "EEU" $kick_off_date
-#             rm -rf ./xml/$country
+#             echo "copy file: BIG7 " $country $file
+#             hadoop fs -copyToLocal $file ./xml/$country
+#             echo "proc file: BIG7 " $country $file
+#             python sample.py $country $num_files
+#             rm ./xml/$country/* 
 #       done
-# else
-#       echo "EEU = skipped"
-# fi
+#       python process.py $country "BIG7" $kick_off_date
+#       rm -rf ./xml/$country
+# done
+
+# EEU - change true or false if next week EEU is required or not -------------------------------------------------------------------------------------------------
+EEU_countries=("TUR" "POL" "RUS" "RUM" "GRC" "CHE" "HUN" "HRV" "BGR" "SVK" "KAZ")
+EEU_countries=("SVK")
+if $EEU_to_do
+then
+      for country in ${EEU_countries[@]};
+      do
+            echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+            mkdir ./xml/$country
+            num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
+            
+            for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+            do
+                  echo "copy file: EEU " $country $file
+                  hadoop fs -copyToLocal $file ./xml/$country
+                  echo "proc file: EEU " $country $file
+                  python sample.py $country $num_files
+                  rm ./xml/$country/* 
+            done
+            python process.py $country "EEU" $kick_off_date
+            rm -rf ./xml/$country
+      done
+else
+      echo "EEU = skipped"
+fi
 
 # # WEU ------------------------------------------------------------------------------------------------------------------------------------------------------------
 # WEU_countries=("NLD" "SWE" "BEL" "PRT" "AUT" "DNK" "NOR" "FIN" "CHE" "IRL" "LUX" "MLT" "ISL")
@@ -92,23 +118,4 @@ mkdir $kick_off_date
 # done
 # python lam_join.py $kick_off_date
 
-# Big 7 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-BIG7_countries=("AUS" "DEU" "ESP" "GBR" "ITA" "FRA" "USA")
-BIG7_countries=("BEL")
-for country in ${BIG7_countries[@]};
-do
-      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-      mkdir ./xml/$country
-      num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
-      
-      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
-      do
-            echo "copying files: BIG7 " $country $file
-            hadoop fs -copyToLocal $file ./xml/$country
-            echo "processing files: BIG7 " $country $file
-            python sample.py $country $num_files
-            rm ./xml/$country/* 
-      done
-      python process.py $country "BIG7" $kick_off_date
-      rm -rf ./xml/$country
-done
+

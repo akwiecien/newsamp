@@ -6,9 +6,7 @@ import datetime
 
 def main(country, num_files):   
     randomed_list = do_sample(country, num_files)
-    print(len(randomed_list))
     save_tmp(randomed_list, country)
-
 
 def do_sample(country, number_of_files):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -16,7 +14,7 @@ def do_sample(country, number_of_files):
     randomed_list = []
     if int(number_of_files)<6:
         for file in files:
-            print('reading file: '+file)
+            print('read file: '+file)
             base_path = os.path.join(dir_path, 'xml', country)
             content = open(os.path.join(base_path,file), 'r')
             for line in content:
@@ -26,7 +24,7 @@ def do_sample(country, number_of_files):
     else:  
         slice_number = int((300000/(int(number_of_files)-1)))
         for file in files:
-            print('reading file: '+file)
+            print('read file: '+file)
             base_path = os.path.join(dir_path, 'xml', country)
             content = open(os.path.join(base_path,file), 'r')
             tempList = []
@@ -39,6 +37,7 @@ def do_sample(country, number_of_files):
             if sl>len(tempList):
                 sl = len(tempList)
             randomed_list = randomed_list + tempList[:sl]
+    random.shuffle(randomed_list)
     return randomed_list     
 
 def save_tmp(randomed_list, country):
