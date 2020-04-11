@@ -3,21 +3,21 @@ import sys
 
 def join(kick_off_date):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    files = os.listdir(dir_path)
+    files = os.listdir(os.path.join(dir_path, kick_off_date))
     first = False
     aggregeted_csv = []
     for file in files:
         if file.startswith("NA_"):
-            fr = open(os.path.join(dir_path, file), 'r')
+            fr = open(os.path.join(dir_path, kick_off_date, file), 'r')
             for line in fr:
                 if line.startswith("place_id"):
                     if len(aggregeted_csv)==0:
                         aggregeted_csv.append(line)
                 else:
                     aggregeted_csv.append(line)
-            os.remove(file)
+            os.remove(os.path.join(dir_path, kick_off_date, file))
 
-    fw = open(os.path.join(dir_path,"NA_ALL_"+kick_off_date+".csv"), 'w')
+    fw = open(os.path.join(dir_path, kick_off_date, "NA_ALL_"+kick_off_date+".csv"), 'w')
     for item in aggregeted_csv:
         fw.write(item.encode('utf8'))
 
