@@ -92,7 +92,7 @@ mkdir $kick_off_date
 # done
 # python lam_join.py $kick_off_date
 
-# Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Big 7 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 BIG7_countries=("AUS" "DEU" "ESP" "GBR" "ITA" "FRA" "USA")
 BIG7_countries=("BEL")
 for country in ${BIG7_countries[@]};
@@ -106,9 +106,10 @@ do
             echo "copying files: BIG7 " $country $file
             hadoop fs -copyToLocal $file ./xml/$country
             echo "processing files: BIG7 " $country $file
-            python sample.py $country "BIG7" $kick_off_date $num_files
+            python sample.py $country $num_files
             rm ./xml/$country/* 
       done
-      # python sample.py $country "BIG7" $kick_off_date
+      python process.py $country "BIG7" $kick_off_date
+      rm ./xml/$country_temp.csv
       rm -rf ./xml/$country
 done
