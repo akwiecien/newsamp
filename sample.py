@@ -75,15 +75,17 @@ country_sample_numbers = [
     {'country':'USA', 'counts': [15,15,40,40,40]},
 ]
 
-def main(country, region, kick_off_date):
+def main(country, region, kick_off_date, num_files):
     
     # auth = '{"Authorization": "Bearer N2I3YWVlOWEtMmY3Mi00OWRjLTgxNTQtZTM0ZDE0YzkzMDJkYjlkZWEwYWUtNzJk_PF84_e21bb5d5-a909-4502-9608-2708d7ac58c3"}'
     # auth_json = json.loads(auth)
     
     try:
-        randomed_list = do_sample(country)
-        csv_list = create_csv_list(country, region, randomed_list)
-        save_csv_list(csv_list, country, region, kick_off_date)
+        randomed_list = do_sample(country, num_files)
+        save_tmp(randomed_list, country)
+
+        # csv_list = create_csv_list(country, region, randomed_list)
+        # save_csv_list(csv_list, country, region, kick_off_date)
     
         # payload = {
         #     "toPersonEmail": "andrzej.kwiecien@here.com",
@@ -98,15 +100,19 @@ def main(country, region, kick_off_date):
         #     'markdown': 'Failed !!! Region: '+region+"  |  Country: " + country
         # }
         # requests.post("https://api.ciscospark.com/v1/messages", data=payload, headers=auth_json)
-    
+        
+def save_tmp(randomed_list, country):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    fw = open(os.path.join(dir_path, country, country"_tmp.csv"), 'ab')
+    for line in randomed_list:
+        fw.write(line.encode("UTF-8")+"\r\n")
 
-def do_sample(country):
+def do_sample(country, number_of_files):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     files = os.listdir(os.path.join(dir_path, 'xml', country))
-    number_of_files = len(files)
     slice_number = int((120000/number_of_files)*1.25)
     randomed_list = []
-    if number_of_files<4:
+    if number_of_files<6:
         for file in files:
             print('reading file: '+file)
             base_path = os.path.join(dir_path, 'xml', country)
@@ -402,4 +408,4 @@ def fix_quote(input):
     return input
 
 if __name__ == "__main__":
-    main(sys.argv[1], sys.argv[2], sys.argv[3])
+    main(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
