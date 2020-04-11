@@ -3,6 +3,7 @@ import xml.dom.minidom
 import os
 import random
 import datetime
+import requests
 
 filter_categories = ['800-8400','800-8300','800-8200','800-8000','700-7851','700-7850','700-7600','700-7450','700-7300','700-7000','600-6950','600-6900','600-6800','600-6700','600-6600','600-6500','600-6400','600-6300','600-6200','600-6100','600-6000','550-5520','500-5100','500-5000','300-3200','300-3100','300-3000','200-2300','200-2200','200-2100','200-2000','100-1100','100-1000']
 
@@ -75,9 +76,29 @@ country_sample_numbers = [
 ]
 
 def main(country, region, kick_off_date):
-    randomed_list = do_sample(country)
-    csv_list = create_csv_list(country, region, randomed_list)
-    save_csv_list(csv_list, country, region, kick_off_date)
+    
+    auth = '{"Authorization": "Bearer N2I3YWVlOWEtMmY3Mi00OWRjLTgxNTQtZTM0ZDE0YzkzMDJkYjlkZWEwYWUtNzJk_PF84_e21bb5d5-a909-4502-9608-2708d7ac58c3"}'
+    auth_json = json.loads(auth)
+    
+    try:
+        randomed_list = do_sample(country)
+        csv_list = create_csv_list(country, region, randomed_list)
+        save_csv_list(csv_list, country, region, kick_off_date)
+    
+        payload = {
+            "toPersonEmail": "andrzej.kwiecien@here.com",
+            'markdown': 'Success !!! Region: '+region+"  |  Country: " + country
+        }
+        requests.post("https://api.ciscospark.com/v1/messages", data=payload, headers=auth_json)
+    except Exception as exception:
+        print("Region: "+region+"  Country: "+country+"  Exception:   "+ exception)
+
+        payload = {
+            "toPersonEmail": "andrzej.kwiecien@here.com",
+            'markdown': 'Failed !!! Region: '+region+"  |  Country: " + country
+        }
+        requests.post("https://api.ciscospark.com/v1/messages", data=payload, headers=auth_json)
+    
 
 def do_sample(country):
     dir_path = os.path.dirname(os.path.realpath(__file__))
