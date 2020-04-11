@@ -75,7 +75,7 @@ country_sample_numbers = [
     {'country':'USA', 'counts': [15,15,40,40,40]},
 ]
 
-def main(country, region, kick_off_date, num_files):
+def main(country, region, kick_off_date):
     randomed_list = read_samples(country)  
     csv_list = create_csv_list(country, region, randomed_list)
     save_csv_list(csv_list, country, region, kick_off_date)
