@@ -368,6 +368,8 @@ def check_counts_finished(current_counts):
 def save_csv_list(csv_list, country, region, kick_off_date):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file_name = os.path.join(dir_path, kick_off_date,region+"_"+country+"_"+kick_off_date+".csv")
+    if region == "BIG7":
+        file_name = os.path.join(dir_path, kick_off_date, country+"_"+kick_off_date+".csv")
     fo = open(file_name, 'wb')
     for line in csv_list:
         fo.write(line.encode('UTF-8')+"\r\n")

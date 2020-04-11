@@ -91,3 +91,19 @@ do
       rm -rf ./xml/$country
 done
 python lam_join.py $kick_off_date
+
+# Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
+BIG7_countries=("AUS" "DEU" "ESP" "GBR" "ITA" "FRA" "USA")
+BIG7_countries=("ITA")
+for country in ${BIG7_countries[@]};
+do
+      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+      mkdir ./xml/$country
+      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+      do
+            echo "copying files: BIG7 " $country $file
+            hadoop fs -copyToLocal $file ./xml/$country
+      done
+      python sample.py $country "BIG7" $kick_off_date
+      rm -rf ./xml/$country
+done
