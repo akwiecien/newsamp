@@ -83,10 +83,11 @@ def main(country, region, kick_off_date, num_files):
 def read_samples(country):
     randomed_list = []
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    fw = open (os.path.join(dir_path, "xml", country+"_temp.csv"), 'rb')
+    fw = open (os.path.join(dir_path, "xml", country+"_tmp.csv"), 'rb')
     for line in fw:
         randomed_list.append(line)
     fw.close()
+    os.remove(os.path.join(dir_path, "xml", country+"tmp.csv"))
     return randomed_list
 
 def create_csv_list(country, region, randomed_list):

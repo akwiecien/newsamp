@@ -110,6 +110,5 @@ do
             rm ./xml/$country/* 
       done
       python process.py $country "BIG7" $kick_off_date
-      rm ./xml/$country_temp.csv
       rm -rf ./xml/$country
 done
