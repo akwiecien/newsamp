@@ -110,7 +110,7 @@ def save_tmp(randomed_list, country):
 def do_sample(country, number_of_files):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     files = os.listdir(os.path.join(dir_path, 'xml', country))
-    slice_number = int((120000/number_of_files)*1.25)
+    slice_number = int((120000/int(number_of_files))*1.25)
     randomed_list = []
     if int(number_of_files)<6:
         for file in files:
