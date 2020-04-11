@@ -3,26 +3,26 @@ EEU_to_do=true
 base_path="/lcms/extract/pbTmpData/ENTIREWORLDPLACES/0011229-191225202549706-oozie-oozi-W/extractOut"            # <- check
 mkdir $kick_off_date
 
-# # Big 7 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-# BIG7_countries=("AUS" "DEU" "ESP" "GBR" "ITA" "FRA" "USA")
-# BIG7_countries=("ITA")
-# for country in ${BIG7_countries[@]};
-# do
-#       echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-#       mkdir ./xml/$country
-#       num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
+# Big 7 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+BIG7_countries=("AUS" "DEU" "ESP" "GBR" "ITA" "FRA" "USA")
+BIG7_countries=("ITA")
+for country in ${BIG7_countries[@]};
+do
+      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+      mkdir ./xml/$country
+      num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
       
-#       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
-#       do
-#             echo "copy file: BIG7 " $country $file
-#             hadoop fs -copyToLocal $file ./xml/$country
-#             echo "proc file: BIG7 " $country $file
-#             python sample.py $country $num_files
-#             rm ./xml/$country/* 
-#       done
-#       python process.py $country "BIG7" $kick_off_date
-#       rm -rf ./xml/$country
-# done
+      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+      do
+            echo "copy file: BIG7 " $country $file
+            hadoop fs -copyToLocal $file ./xml/$country
+            echo "proc file: BIG7 " $country $file
+            python sample.py $country $num_files
+            rm ./xml/$country/* 
+      done
+      python process.py $country "BIG7" $kick_off_date
+      rm -rf ./xml/$country
+done
 
 # EEU - change true or false if next week EEU is required or not -------------------------------------------------------------------------------------------------
 EEU_countries=("TUR" "POL" "RUS" "RUM" "GRC" "CHE" "HUN" "HRV" "BGR" "SVK" "KAZ")
