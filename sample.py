@@ -80,10 +80,10 @@ def main(country, region, kick_off_date, num_files):
     # auth = '{"Authorization": "Bearer N2I3YWVlOWEtMmY3Mi00OWRjLTgxNTQtZTM0ZDE0YzkzMDJkYjlkZWEwYWUtNzJk_PF84_e21bb5d5-a909-4502-9608-2708d7ac58c3"}'
     # auth_json = json.loads(auth)
     
+    randomed_list = do_sample(country, num_files)
+    save_tmp(randomed_list, country)
     try:
-        randomed_list = do_sample(country, num_files)
-        save_tmp(randomed_list, country)
-
+        pass
         # csv_list = create_csv_list(country, region, randomed_list)
         # save_csv_list(csv_list, country, region, kick_off_date)
     
