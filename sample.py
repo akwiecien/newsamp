@@ -100,10 +100,10 @@ def main(country, region, kick_off_date, num_files):
         #     'markdown': 'Failed !!! Region: '+region+"  |  Country: " + country
         # }
         # requests.post("https://api.ciscospark.com/v1/messages", data=payload, headers=auth_json)
-        
+
 def save_tmp(randomed_list, country):
     dir_path = os.path.dirname(os.path.realpath(__file__))
-    fw = open(os.path.join(dir_path, country, country"_tmp.csv"), 'ab')
+    fw = open(os.path.join(dir_path, country, country+"_tmp.csv"), 'ab')
     for line in randomed_list:
         fw.write(line.encode("UTF-8")+"\r\n")
 
