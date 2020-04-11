@@ -13,7 +13,6 @@ def main(country, num_files):
 def do_sample(country, number_of_files):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     files = os.listdir(os.path.join(dir_path, 'xml', country))
-    slice_number = int((120000/int(number_of_files))*1.25)
     randomed_list = []
     if int(number_of_files)<6:
         for file in files:
@@ -25,6 +24,7 @@ def do_sample(country, number_of_files):
                     randomed_list.append(line)
             content.close()
     else:  
+        slice_number = int((300000/(int(number_of_files)-1)))
         for file in files:
             print('reading file: '+file)
             base_path = os.path.join(dir_path, 'xml', country)
