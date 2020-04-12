@@ -119,9 +119,9 @@ mkdir $kick_off_date
 # done
 # python na_join.py $kick_off_date
 
-Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
 LAM_countries=("BRA" "MEX" "ARG" "COL" "CHL" "PER" "ECU" "PRY" "PAN" "VEN")
-# LAM_countries=("VEN")
+LAM_countries=("VEN")
 for country in ${LAM_countries[@]};
 do
       echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
@@ -130,7 +130,7 @@ do
       
       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
       do
-            echo "copy file: LAM " $country $file
+            echo date '+%Y-%m-%d %H:%M:%S' "copy file: LAM " $country $file
             hadoop fs -copyToLocal $file ./xml/$country
             echo "proc file: LAM " $country $file
             python sample.py $country $num_files
