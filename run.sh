@@ -97,32 +97,10 @@ mkdir $kick_off_date
 # python apac_join.py $kick_off_date
 
 
-# North America -----------------------------------------------------------------------------------------------------------------------------------------------------------
-NA_countries=("CAN" "BHS" "CYM" "JAM" "VGB")
-# NA_countries=("BHS" "CYM" "JAM" "VGB")
-for country in ${NA_countries[@]};
-do
-      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-      mkdir ./xml/$country
-      num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
-      
-      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
-      do
-            echo "copy file: NA " $country $file
-            hadoop fs -copyToLocal $file ./xml/$country
-            echo "proc file: NA " $country $file
-            python sample.py $country $num_files
-            rm ./xml/$country/* 
-      done
-      python process.py $country "NA" $kick_off_date
-      rm -rf ./xml/$country
-done
-python na_join.py $kick_off_date
-
-# Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
-# LAM_countries=("BRA" "MEX" "ARG" "COL" "CHL" "PER" "ECU" "PRY" "PAN" "VEN")
-# # LAM_countries=("VEN")
-# for country in ${LAM_countries[@]};
+# # North America -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# NA_countries=("CAN" "BHS" "CYM" "JAM" "VGB")
+# # NA_countries=("BHS" "CYM" "JAM" "VGB")
+# for country in ${NA_countries[@]};
 # do
 #       echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
 #       mkdir ./xml/$country
@@ -130,15 +108,37 @@ python na_join.py $kick_off_date
       
 #       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
 #       do
-#             echo "copy file: LAM " $country $file
+#             echo "copy file: NA " $country $file
 #             hadoop fs -copyToLocal $file ./xml/$country
-#             echo "proc file: LAM " $country $file
+#             echo "proc file: NA " $country $file
 #             python sample.py $country $num_files
 #             rm ./xml/$country/* 
 #       done
-#       python process.py $country "LAM" $kick_off_date
+#       python process.py $country "NA" $kick_off_date
 #       rm -rf ./xml/$country
 # done
-# python lam_join.py $kick_off_date
+# python na_join.py $kick_off_date
+
+Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
+LAM_countries=("BRA" "MEX" "ARG" "COL" "CHL" "PER" "ECU" "PRY" "PAN" "VEN")
+# LAM_countries=("VEN")
+for country in ${LAM_countries[@]};
+do
+      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+      mkdir ./xml/$country
+      num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
+      
+      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+      do
+            echo "copy file: LAM " $country $file
+            hadoop fs -copyToLocal $file ./xml/$country
+            echo "proc file: LAM " $country $file
+            python sample.py $country $num_files
+            rm ./xml/$country/* 
+      done
+      python process.py $country "LAM" $kick_off_date
+      rm -rf ./xml/$country
+done
+python lam_join.py $kick_off_date
 
 
