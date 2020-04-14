@@ -25,7 +25,7 @@ def join_spa(kick_off_date):
     files = os.listdir(os.path.join(dir_path, kick_off_date))
     aggregeted_csv = []
     for file in files:
-        if file.startswith("LAM_") and not file.startswith("LAM_BRA"):
+        if file.startswith("LAM_") and not file.startswith("LAM_POR"):
             fr = open(os.path.join(dir_path, kick_off_date, file), 'rb')
             for line in fr:
                 if line.startswith("place_id"):
