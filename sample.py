@@ -14,7 +14,7 @@ def do_sample(country, number_of_files):
     randomed_list = []
     if int(number_of_files)<6:
         for file in files:
-            print(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+' read file: '+file)
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")+' read file: '+file)
             base_path = os.path.join(dir_path, 'xml', country)
             content = open(os.path.join(base_path,file), 'r')
             for line in content:
@@ -24,7 +24,7 @@ def do_sample(country, number_of_files):
     else:  
         slice_number = int((300000/(int(number_of_files)-1)))
         for file in files:
-            print(datetime.datetime.now().strftime("%m/%d/%Y, %H:%M:%S")+' read file: '+file)
+            print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")+' read file: '+file)
             base_path = os.path.join(dir_path, 'xml', country)
             content = open(os.path.join(base_path,file), 'r')
             tempList = []
