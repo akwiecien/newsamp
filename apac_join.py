@@ -4,7 +4,6 @@ import sys
 def join(kick_off_date):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     files = os.listdir(os.path.join(dir_path, kick_off_date))
-    first = False
     aggregeted_csv = []
     for file in files:
         if "APAC_IND" in file or "APAC_BGD" in file or "APAC_NPL" in file or "APAC_LKA" in file:
@@ -15,11 +14,13 @@ def join(kick_off_date):
                         aggregeted_csv.append(line.decode("UTF-8"))
                 else:
                     aggregeted_csv.append(line.decode("UTF-8"))
+            fr.close()
             os.remove(os.path.join(dir_path, kick_off_date, file))
 
     fw = open(os.path.join(dir_path, kick_off_date, "RN_"+kick_off_date+".csv"), 'wb')
     for item in aggregeted_csv:
         fw.write(item.encode('UTF-8'))
+    fw.close()
 
 
 if __name__ == "__main__":

@@ -15,10 +15,12 @@ def join_por(kick_off_date):
                 else:
                     aggregeted_csv.append(line.decode("UTF-8"))
             os.remove(os.path.join(dir_path, kick_off_date, file))
+            fr.close()
 
     fw = open(os.path.join(dir_path, kick_off_date, "LAM_POR_"+kick_off_date+".csv"), 'wb')
     for item in aggregeted_csv:
         fw.write(item.encode("UTF-8"))
+    fw.close()
 
 def join_spa(kick_off_date):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -34,10 +36,12 @@ def join_spa(kick_off_date):
                 else:
                     aggregeted_csv.append(line.decode("UTF-8"))
             os.remove(os.path.join(dir_path, kick_off_date, file))
+            fr.close()
 
     fw = open(os.path.join(dir_path, kick_off_date, "LAM_SPA_"+kick_off_date+".csv"), 'wb')
     for item in aggregeted_csv:
         fw.write(item.encode('UTF-8'))
+    fw.close()
 
 if __name__ == "__main__":
     join_por(sys.argv[1])

@@ -75,27 +75,27 @@ mkdir $kick_off_date
 #       rm -rf ./xml/$country
 # done
 
-# # APAC -----------------------------------------------------------------------------------------------------------------------------------------------------------
-# APAC_countries=("THA" "IDN" "VNM" "MYS" "PHL" "TWN" "SGP" "HKG" "IND" "BGD" "NPL" "LKA")
-# # APAC_countries=("LKA")
-# for country in ${APAC_countries[@]};
-# do
-#       echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-#       mkdir ./xml/$country
-#       num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
+# APAC -----------------------------------------------------------------------------------------------------------------------------------------------------------
+APAC_countries=("THA" "IDN" "VNM" "MYS" "PHL" "TWN" "SGP" "HKG" "IND" "BGD" "NPL" "LKA")
+# APAC_countries=("LKA")
+for country in ${APAC_countries[@]};
+do
+      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+      mkdir ./xml/$country
+      num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
       
-#       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
-#       do
-#             echo $(date '+%Y-%m-%d %H:%M:%S') "copy file: APAC " $country $file
-#             hadoop fs -copyToLocal $file ./xml/$country
-#             echo $(date '+%Y-%m-%d %H:%M:%S') "proc file: APAC " $country $file
-#             python sample.py $country $num_files
-#             rm ./xml/$country/* 
-#       done
-#       python process.py $country "APAC" $kick_off_date
-#       rm -rf ./xml/$country
-# done
-# python apac_join.py $kick_off_date
+      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+      do
+            echo $(date '+%Y-%m-%d %H:%M:%S') "copy file: APAC " $country $file
+            hadoop fs -copyToLocal $file ./xml/$country
+            echo $(date '+%Y-%m-%d %H:%M:%S') "proc file: APAC " $country $file
+            python sample.py $country $num_files
+            rm ./xml/$country/* 
+      done
+      python process.py $country "APAC" $kick_off_date
+      rm -rf ./xml/$country
+done
+python apac_join.py $kick_off_date
 
 # # North America -----------------------------------------------------------------------------------------------------------------------------------------------------------
 # NA_countries=("CAN" "BHS" "CYM" "JAM" "VGB")
@@ -119,26 +119,26 @@ mkdir $kick_off_date
 # done
 # python na_join.py $kick_off_date
 
-# Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
-LAM_countries=("BRA" "MEX" "ARG" "COL" "CHL" "PER" "ECU" "PRY" "PAN" "VEN")
-# LAM_countries=("VEN")
-for country in ${LAM_countries[@]};
-do
-      echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
-      mkdir ./xml/$country
-      num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
+# # Latino America -----------------------------------------------------------------------------------------------------------------------------------------------------------
+# LAM_countries=("BRA" "MEX" "ARG" "COL" "CHL" "PER" "ECU" "PRY" "PAN" "VEN")
+# # LAM_countries=("VEN")
+# for country in ${LAM_countries[@]};
+# do
+#       echo "------------------------------------------------------------------------------------------------------------------------------------------------------------"
+#       mkdir ./xml/$country
+#       num_files=$(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_ | wc -l);
       
-      for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
-      do
-            echo $(date '+%Y-%m-%d %H:%M:%S') "copy file: LAM " $country $file
-            hadoop fs -copyToLocal $file ./xml/$country
-            echo $(date '+%Y-%m-%d %H:%M:%S') "proc file: LAM " $country $file
-            python sample.py $country $num_files
-            rm ./xml/$country/* 
-      done
-      python process.py $country "LAM" $kick_off_date
-      rm -rf ./xml/$country
-done
-python lam_join.py $kick_off_date
+#       for file in $(hadoop fs -ls -R -C $base_path | grep ".*.xml" | grep /$country/$country_);
+#       do
+#             echo $(date '+%Y-%m-%d %H:%M:%S') "copy file: LAM " $country $file
+#             hadoop fs -copyToLocal $file ./xml/$country
+#             echo $(date '+%Y-%m-%d %H:%M:%S') "proc file: LAM " $country $file
+#             python sample.py $country $num_files
+#             rm ./xml/$country/* 
+#       done
+#       python process.py $country "LAM" $kick_off_date
+#       rm -rf ./xml/$country
+# done
+# python lam_join.py $kick_off_date
 
 

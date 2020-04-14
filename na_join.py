@@ -16,10 +16,12 @@ def join(kick_off_date):
                 else:
                     aggregeted_csv.append(line.decode("UTF-8"))
             os.remove(os.path.join(dir_path, kick_off_date, file))
+            fr.close()
 
     fw = open(os.path.join(dir_path, kick_off_date, "NA_ALL_"+kick_off_date+".csv"), 'wb')
     for item in aggregeted_csv:
         fw.write(item.encode('UTF-8'))
+    fw.close()
 
 
 if __name__ == "__main__":

@@ -352,7 +352,7 @@ def save_csv_list(csv_list, country, region, kick_off_date):
         file_name = os.path.join(dir_path, kick_off_date, country+"_"+kick_off_date+".csv")
     fo = open(file_name, 'wb')
     for line in csv_list:
-        fo.write(line.encode('UTF-8')+"\r\n")
+        fo.write(line.encode('UTF-8')+"\\r\\n")
         # fo.write(line+"\t\n")
 
 def fix_quote(input):
