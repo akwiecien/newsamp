@@ -7,7 +7,7 @@ def join(kick_off_date):
     first = False
     aggregeted_csv = []
     for file in files:
-        if "APAC_IND" in file or "APAC_BGR" in file or "APAC_NPL" in file or "APAC_LKA" in file:
+        if "APAC_IND" in file or "APAC_BGD" in file or "APAC_NPL" in file or "APAC_LKA" in file:
             fr = open(os.path.join(dir_path, kick_off_date, file), 'rb')
             for line in fr:
                 if line.startswith("place_id"):
